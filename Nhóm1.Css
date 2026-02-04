@@ -1,0 +1,512 @@
+/* --- 1. THIẾT LẬP CHUNG --- */
+/* --- 1. THIẾT LẬP CHUNG --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    background-color: #f0f2f5 ;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+.wrapper {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: transparent;
+    box-shadow: none;/
+}
+/* --- 2. HEADER --- */
+header {
+    width: 100%; /* Trải dài toàn màn hình */
+    background: linear-gradient(135deg, #3e63a3 20%, #133575 100%); 
+}
+
+header .header-banner {
+    max-width: 1200px; /* Nội dung bên trong vẫn căn giữa */
+    margin: 0 auto;
+    padding: 20px 40px;
+    display: flex;
+    align-items: center;
+}
+
+header h1 {
+    margin-left: 20px;
+    color: #ffffff;
+    font-size: 28px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+/* --- ANIMATION HEADER --- */
+
+/* 1. Hiệu ứng logo xoay nhẹ khi load trang */
+.logo-link img {
+    animation: logoEntrance 1s ease-out forwards;
+    transition: transform 0.3s ease;
+}
+
+.logo-link:hover img {
+    transform: rotate(10deg) scale(1.1);
+}
+
+/* 2. Hiệu ứng tiêu đề chính */
+.header-text-group h1 {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    cursor: default;
+    overflow: hidden;
+}
+
+/* Hiệu ứng nảy chữ chính khi load trang */
+.header-text-group h1 {
+    animation: textSlideUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+/* 3. PHẦN TEXT NHỎ (SUB-TITLE) - GIỐNG MẪU BẠN GỬI */
+.sub-title {
+    display: block;
+    font-size: 16px;
+    color: #cbd5e0; /* Màu xám nhạt */
+    text-transform: none;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    margin-top: 5px;
+    
+    /* Trạng thái ban đầu: Ẩn và đẩy xuống */
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* KHI RÊ CHUỘT VÀO H1: Hiện text nhỏ nảy lên */
+.header-text-group:hover .sub-title {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* --- ĐỊNH NGHĨA CÁC CHUYỂN ĐỘNG (KEYFRAMES) --- */
+
+@keyframes logoEntrance {
+    from { opacity: 0; transform: scale(0.5) rotate(-45deg); }
+    to { opacity: 1; transform: scale(1) rotate(0); }
+}
+
+@keyframes textSlideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shine {
+    10% { left: 150%; }
+    100% { left: 150%; }
+}
+/* --- ANIMATION LOGO (HIỆU ỨNG NÚT BẤM) --- */
+
+.logo-link img {
+    display: inline-block;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); /* Chuyển động mượt mà */
+    cursor: pointer;
+    border-radius: 50%; /* Giữ hiệu ứng trong phạm vi logo tròn */
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1)); 
+}
+
+/* 1. Khi rê chuột (Hover): Nổi bật hơn */
+.logo-link:hover {
+    transform: translateY(-2px) scale(1.05); /* Bay nhẹ lên trên và phóng to */
+    filter: drop-shadow(0 8px 15px rgba(165, 165, 165, 0.3)) brightness(1.05); /* Tạo bóng đổ sâu hơn */
+}
+
+.logo-link:hover img {
+    transform: rotate(5deg); /* Xoay nhẹ icon bên trong */
+}
+
+/* 2. Khi ấn (Active/Kích hoạt href): Mờ đi và lún xuống */
+.logo-link:active {
+    transform: translateY(2px) scale(0.95); /* Đẩy xuống và thu nhỏ lại */
+    opacity: 0.8; /* Mờ đi tạo cảm giác bị nhấn */
+    filter: drop-shadow(0 2px 5px rgba(0, 0.3, 0.3, 0.5)) brightness(0.96); /* Bóng đổ sát lại */
+    transition: all 0.1s; /* Tốc độ phản hồi cực nhanh khi nhấn */
+}
+/* --- 3. THANH ĐIỀU HƯỚNG (NAV) --- */
+nav {
+    width: 100%;
+    background-color: #ffffff;
+    border-bottom: 3px solid #133575; /* Đồng bộ với màu tối nhất của Header */
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    animation: slideDown 0.6s ease-out;
+}
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.DieuHuong {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: #133575; /* Chữ màu xanh đậm Header */
+    padding: 15px 25px;
+    font-weight: bold;
+    position: relative;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    z-index: 1;
+    overflow: hidden;
+    
+}
+.DieuHuong:active {
+    background-color: rgba(255, 255, 255, 0.2); /* Tạo lớp phủ sáng nhẹ */
+    color: #fff !important;
+    opacity: 0.95; /* Mờ nhẹ */
+    transform: scale(1); /* Thu nhỏ tinh tế */
+}
+/* Hiệu ứng nền trượt: Sử dụng dải màu Gradient giống Header */
+.DieuHuong::before {
+    content: '';
+    position: absolute;
+    bottom: -100%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, #133575, #3e63a3); /* Gradient từ Header */
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    z-index: -1;
+}
+
+/* Đường gạch chân trang trí: Dùng màu xanh nhạt để nổi bật trên nền trắng */
+.DieuHuong::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 50%;
+    width: 0; height: 3px;
+    background: #fff;
+    transition: all 0.2s ease;
+    transform: translateX(-50%);
+}
+.DieuHuong:active::after {
+    width: 80%; /* Đường kẻ loé ra từ giữa khi nhấn */
+}
+/* Trạng thái Hover */
+.DieuHuong:hover {
+    color: #ffffff !important; /* Chữ chuyển trắng hoàn toàn */
+}
+
+.DieuHuong:hover::before {
+    bottom: 0; /* Nền trượt lên */
+}
+
+.DieuHuong:hover::after {
+    width: 70%; /* Gạch chân hiện ra tinh tế */
+    background-color: #ffffff; /* Đổi gạch chân sang trắng khi nền xanh hiện lên */
+}
+
+/* Hiệu ứng Icon */
+.DieuHuong img {
+    transition: all 0.4s ease;
+    filter: none; /* Giữ màu gốc ban đầu */
+}
+
+.DieuHuong:hover img {
+    filter: brightness(0) invert(1); /* Chuyển icon sang trắng để tiệp nền xanh */
+    transform: scale(1.1);
+}
+
+/* Animation xuất hiện của Nav */
+@keyframes slideDown {
+    from { transform: translateY(-100%); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+/* --- 4. BỐ CỤC CHÍNH --- */
+.main-layout {
+    display: flex;
+    flex: 1;
+    gap: 25px; /* Khoảng cách giữa 2 cột */
+    padding: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+    margin-top: 30px;
+    margin-bottom: 50px;
+    width: 100%;
+    align-items: flex-start; /* Giúp các cột không bị kéo dài bằng nhau nếu nội dung ngắn */
+}
+.content-col {
+    flex: 2.5; /* Chiếm diện tích lớn hơn */
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 25px; /* Bo góc lớn giống hình mẫu */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); /* Đổ bóng nhẹ mượt mà */
+    min-height: 500px;
+}
+
+.sidebar-fixed {
+    flex: 1; /* Chiếm diện tích nhỏ hơn */
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    position: sticky;
+    top: 100px; /* Ghim thanh thông tin khi cuộn trang */
+}
+
+.sidebar-box {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 12px;
+    border-left: 6px solid #133575;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+.sidebar-box {
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 25px; /* Bo góc đồng bộ với cột trái */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    border: none; /* Bỏ viền cũ */
+}
+.content-col h2, .sidebar-box h3 {
+    color: #133575;
+    margin-bottom: 20px;
+    font-size: 22px;
+    border-bottom: 2px solid #f0f2f5;
+    padding-bottom: 10px;
+}
+
+/* --- 5. NỘI DUNG CHI TIẾT --- */
+.noi-dung-tab section {
+    background: #fff;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    line-height: 1.8;
+}
+
+.noi-dung-tab h2 {
+    color: #133575;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #eef2f7;
+    padding-bottom: 10px;
+}
+footer {
+    width: 100%;
+    background: #133575;
+    color: #fff;
+    width: 100%;
+    padding: 40px 0;
+    margin-top: 50px;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+/* --- 6. FORM LIÊN HỆ & OVERLAY (ĐÃ NÂNG CẤP) --- */
+#overlay-bg {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(8, 8, 8, 0.342);
+    backdrop-filter: blur(4px); /* Làm mờ nền phía sau */
+    z-index: 2000;
+    transition: opacity 0.3s ease;
+}
+
+#contact-form {
+    display: none;
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    background: #ffffff;
+    padding: 40px 30px;
+    border-radius: 20px; /* Bo góc mềm mại hơn */
+    z-index: 2100;
+    width: 90%;
+    max-width: 450px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3); /* Đổ bóng sâu tạo chiều sâu */
+    animation: popupFadeIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Hiệu ứng nảy nhẹ */
+}
+
+/* Tiêu đề Form */
+#contact-form h3 {
+    text-align: center;
+    color: #133575; /* Màu chủ đạo của nhóm */
+    margin-bottom: 25px;
+    font-size: 24px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Ô nhập liệu (Input & Textarea) */
+#contact-form input, 
+#contact-form textarea {
+    width: 100%;
+    padding: 14px;
+    margin-bottom: 15px;
+    border: 2px solid #eef2f7;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 15px;
+    transition: all 0.3s ease;
+    background-color: #f8f9fa;
+    outline: none;
+    resize: none;
+}
+
+/* Hiệu ứng khi click vào ô nhập */
+#contact-form input:focus, 
+#contact-form textarea:focus {
+    border-color: #133575;
+    background-color: #fff;
+    box-shadow: 0 0 0 4px rgba(19, 53, 117, 0.1);
+}
+
+/* Nút Gửi */
+#contact-form button {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(135deg, #133575 0%, #3e63a3 100%); /* Gradient đồng bộ Header */
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    margin-top: 10px;
+}
+
+#contact-form button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(19, 53, 117, 0.4);
+}
+
+#contact-form button:active {
+    transform: translateY(0);
+}
+
+/* Nút đóng (X) ở góc */
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 28px;
+    color: #999;
+    cursor: pointer;
+    transition: color 0.3s;
+    line-height: 1;
+}
+
+.close-btn:hover {
+    color: #ff4757;
+}
+
+/* Animation nảy lên khi mở */
+@keyframes popupFadeIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -60%) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+/* --- TỐI ƯU HIỆU ỨNG CLICK ẢNH TRONG SIDEBAR --- */
+
+.access-wrapper {
+    display: flex;
+    justify-content: center; /* Căn giữa ảnh trong box */
+    margin-top: 15px;
+}
+.sidebar-box h3 {
+    text-align: center;
+
+}
+
+.img-click-link {
+    display: block;
+    /* Tăng kích thước tại đây (ví dụ 100% của cột hoặc một số pixel lớn hơn) */
+    width: 100%; 
+    max-width: 250px; /* Tăng từ 150px lên 250px để hình to hơn */
+    
+    border-radius: 20px; /* Bo góc mượt hơn cho hình to */
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    cursor: pointer;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.img-click-link img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: all 0.3s ease;
+}
+
+/* HIỆU ỨNG KHI RÊ CHUỘT (Hover) */
+.img-click-link:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(19, 53, 117, 0.2);
+}
+
+.img-click-link:hover img {
+    filter: brightness(1.1); /* Sáng lên một chút */
+}
+
+/* HIỆU ỨNG KHI NHẤN (Active) - ĐÚNG YÊU CẦU MỜ ĐI */
+.img-click-link:active {
+    transform: scale(0.95); /* Thu nhỏ nhẹ */
+    opacity: 0.5; /* Mờ hẳn đi khi nhấn */
+    transition: all 0.1s;
+}
+/* --- 7. RESPONSIVE (DI ĐỘNG) --- */
+@media (max-width: 992px) {
+    .main-layout {
+        flex-direction: column-reverse; /* Sidebar lên đầu */
+    }
+
+    .sidebar-fixed {
+        position: static;
+        width: 100%;
+    }
+
+    .DieuHuong {
+        flex-basis: 45%; /* Chia 2 cột trên tablet/mobile lớn */
+        border-bottom: 1px solid rgba(19, 53, 117, 0.05);
+    }
+}
+
+@media (max-width: 600px) {
+    header .header-banner {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    header h1 {
+        margin-left: 0;
+        margin-top: 10px;
+        font-size: 20px;
+    }
+
+    .DieuHuong {
+        flex-basis: 100%; /* 1 cột trên điện thoại nhỏ */
+    }
+}
